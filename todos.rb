@@ -12,7 +12,7 @@ class Todo
   end
 
   def to_displayable_string
-    return "[#{@completed ? "X" : " "}] #{@text} #{@due_today ? @due_date : ''}"
+    return "[#{@completed ? "X" : " "}] #{@text} #{@due_today ? '' : @due_date}"
   end
 
   def overdue?
