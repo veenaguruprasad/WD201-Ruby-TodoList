@@ -6,25 +6,24 @@ class Todo
     @text = text
     @due_date = due_date
     @completed = completed
-    @overdue = (due_date < Date.today)
-    @due_today = (due_date == Date.today)
-    @due_later = (due_date > Date.today)
   end
 
   def to_displayable_string
-    return "[#{@completed ? "X" : " "}] #{@text} #{@due_today ? '' : @due_date}"
+    display_status = @completed ? "[X]" : "[ ]"
+    display_date = due_today? ? '' : @due_date
+    "#{display_status} #{@text} #{display_date}"
   end
 
   def overdue?
-    @overdue
+    @due_date < Date.today
   end
 
   def due_today?
-    @due_today
+    @due_date == Date.today
   end
 
   def due_later?
-    @due_later
+    @due_date > Date.today
   end
 end
 
@@ -50,11 +49,7 @@ class TodosList
   end
 
   def to_displayable_list
-    mylist = Array.new
-    for item in @todos do
-        mylist.push(item.to_displayable_string)
-    end
-    return mylist
+    @todos.map{ |todo| todo.to_displayable_string}
   end
 end
 
